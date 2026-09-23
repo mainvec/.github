@@ -1,0 +1,35 @@
+name: Plan lint
+
+# Reusable: call from a repo with
+#   jobs: { plans: { uses: mainvec/.github/.github/workflows/plan-lint.yml@main } }
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  plans:
+    name: plan numbers match their issues
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check plans/ and plans/icebox/
+        run: |
+          shopt -s nullglob
+          fail=0
+          for f in plans/*.md plans/icebox/*.md; do
+            name="$(basename "$f")"
+            [[ "$name" == README.md ]] && continue
+            if [[ ! "$name" =~ ^([0-9]{3,})-[a-z0-9]+(-[a-z0-9]+)*\.md$ ]]; then
+              echo "::error file=$f::plan must be named NNN-slug.md, where NNN is its issue number"
+              fail=1
+              continue
+            fi
+            num=$((10#${BASH_REMATCH[1]}))
+            if ! head -n 15 "$f" | grep -Eiq "^(\*\*)?(github )?issue(\*\*)?:.*issues/0*${num}([^0-9]|$)"; then
+              echo "::error file=$f::plan header must link its issue: 'Issue: [#${num}](.../issues/${num})'"
+              fail=1
+            fi
+          done
+          exit "$fail"
