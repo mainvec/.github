@@ -20,6 +20,6 @@ jobs:
     uses: mainvec/.github/.github/workflows/plan-lint.yml@main
 ```
 
-The agent-facing version of these rules lives in the private `mainvec/agents`
-repository (instructions and skills) and in each repository's `AGENTS.md`.
-Change all three together.
+The agent-facing version of these rules lives in the public `mainvec/agents`
+repository (instructions and skills); each repository's `AGENTS.md` links to
+it. Change this repository and `mainvec/agents` together.
