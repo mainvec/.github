@@ -59,7 +59,7 @@ changes, security-sensitive or cross-module work) has a technical plan:
 
 AI-assisted contributions are welcome when you understand and can explain every
 change. The full workflow that agents follow is in
-[mainvec/agents](https://github.com/mainvec/agents/blob/main/instructions/feature-workflow.instructions.md);
+[mainvec/agents](https://github.com/mainvec/agents/blob/main/com.github.copilot/rules/feature-workflow.instructions.md);
 each repository's `AGENTS.md` adds its project rules.
 
 ## Security
